@@ -1,0 +1,25 @@
+{% extends 'base_main.html' %}
+
+{% block content %}
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <div style="margin-left:40px">
+    <form method="post" action="{% url 'item:edit' pk %}">
+        {% csrf_token %}
+        <div>
+            <p>
+                股票名稱：<input type="text" name="name" value="{{ name }}">
+            </p>
+            <p>
+                股價：<input type="text" name="value" value="{{ value }}">
+            </p>
+
+        </div>
+        <div>
+            <p>
+                提交：<input type="submit" value="保存">
+            </p>
+        </div>
+    </form>
+    </div>
+{% endblock %}

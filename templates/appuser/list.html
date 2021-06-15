@@ -1,0 +1,47 @@
+{% extends 'base_main.html' %}
+
+{% block content %}
+    <title>{{ title }}</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+    <div style="margin-left:500px">
+        <table>
+            <tr>
+                <th>appuser</th>
+                <th>token</th>
+                <th>secret_key</th>
+                <th>權限狀態</th>
+                <th>管理</th>
+            </tr>
+            {% for message in messages %}
+                <div class="alert aler-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+            {% for appuser in appuser_list %}
+                <tr>
+                    {#                <td>#}
+                    {#                    <a onclick="return item_delete()" href="{% url 'stock:delete' item.id %}">删除</a>#}
+                    {#                    <a href="{% url 'stock:edit' item.id %}">編輯</a>#}
+                    {#                </td>#}
+                    <td> {{ appuser.name }}</td>
+                    <td>{{ appuser.token }}</td>
+                    <td>{{ appuser.secretkey }}</td>
+                    <td>{{ appuser.is_enable }}</td>
+                    <td>
+                        <a href="{% url 'appuser:edit' appuser.id %}">編輯</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td>
+                    <a href="{% url 'appuser:add' %}">新增</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    {#    <a href="{% url 'item:home' %}">主頁</a>#}
+
+{% endblock %}

@@ -1,0 +1,105 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:11
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - stockdata:/var/lib/postgresql/data
+
+
+#  redis:
+#    image: redis:5
+#    restart: always
+#    volumes:
+#      - ./redis/data:/data
+#    ports:
+#      - 6379:6379
+
+#  nginx:
+#    image: nginx:latest
+#    ports:
+#      - 80:80
+#    volumes:
+#      - ./nginx:/etc/nginx/conf.d
+#    depends_on:
+#      - web
+#
+#  web:
+#    build: ../../.
+#    image: mydjangotemplate
+#    command: bash -c "python manage.py collectstatic --no-input && python manage.py migrate && gunicorn --workers=2 --timeout 100 core.wsgi -b 0.0.0.0:8000 --reload --error-logfile '/mydjangotemplate/logs/gunicorn-error.log'"
+#    volumes:
+#      - django-static:/mydjangotemplate/staticfiles
+#    ports:
+#      - 8000:8000
+#    depends_on:
+#      - redis
+#
+#  celery-worker:
+#    image: mydjangotemplate
+#    command: celery -A core worker --concurrency=4 -l info -n worker1@%h
+#    depends_on:
+#      - web
+#      - redis
+#
+#  celery-beat:
+#    image: mydjangotemplate
+#    command: celery -A core beat -l info
+#    depends_on:
+#      - web
+#      - redis
+
+volumes:
+  stockdata:
+
+#列出Container
+#docker ps
+#docker ps -f "name=log"
+#
+#列出Container狀態
+#docker stats
+#
+#列出Network
+#docker network ls
+#
+#列出Volume
+#docker volume ls
+#
+#Build
+#docker build . -f DockerfileBase -t samplebase  # 指定檔案, 並給予tag名稱
+#docker-compose build
+#
+#Up
+#docker-compose up -d
+#
+#Down
+#docker-compose down
+#
+#Down且移除volume
+#docker-compose down -v
+#
+#刪除所有none的image
+#docker rmi $(docker images -f "dangling=true" -q)
+#
+#看容器狀態
+#docker stats
+#
+#進入container
+#docker exec -exit xxx /bin/bash
+#
+#建立網路
+#docker network create xxx
+#
+#移除所有container
+#d rm $(d container ls -a -q)
+#
+#顯示各個container最後n筆log
+#docker-compose logs --tail="2"
+#
+## 將容器的狀態輸出到stats.txt

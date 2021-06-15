@@ -1,0 +1,52 @@
+{% extends 'base_main.html' %}
+
+{% block content %}
+
+
+    <title>{{ title }}</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+    <script type="text/javascript" language="JavaScript">
+        function item_delete() {
+            if (confirm("確定刪除嗎?")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+
+    <div style="margin-left:500px">
+        <table>
+            <tr>
+                <th>管理</th>
+                <th>股票名稱</th>
+                <th>股價</th>
+            </tr>
+            {% for message in messages %}
+                <div class="alert aler-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+            {% for item in item_list %}
+                <tr>
+                    <td>
+                        <a onclick="return item_delete()" href="{% url 'item:delete' item.id %}">删除</a>
+                        <a href="{% url 'item:edit' item.id %}">編輯</a>
+                    </td>
+                    <td> {{ item.name }} </td>
+                    <td>{{ item.value }}</td>
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td>
+                    <a href="{% url 'item:add' %}">新增</a>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+
+{% endblock %}

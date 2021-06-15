@@ -1,0 +1,32 @@
+{% extends 'base_main.html' %}
+{% block content %}
+    <div style="margin-left:40px">
+        <h3>24小時內打API的APPUSER 圓餅圖 統計</h3>
+    </div>
+    <div id="container" style="width: 75%;">
+        <canvas id="pie-chart"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+        var config = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: {{ data|safe }},
+                    backgroundColor: [
+                        '#d91a1a', 'rgba(19,115,229,0.85)', '#19ba1c', '#9e07c1', '#D3D3D3'
+                    ],
+                    label: "24小時內每小時api打的次數"
+                }],
+                labels: {{ labels|safe }}
+            },
+            options: {
+                responsive: true
+            }
+        };
+        window.onload = function () {
+            var ctx = document.getElementById('pie-chart').getContext('2d');
+            window.myPie = new Chart(ctx, config);
+        };
+    </script>
+{% endblock %}

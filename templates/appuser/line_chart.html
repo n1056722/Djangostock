@@ -1,0 +1,66 @@
+{% extends 'base_main.html' %}
+
+{% block content %}
+      <div style="margin-left:40px">
+        <h3>24小時和60分鐘內打API次數 折線圖 統計</h3>
+    </div>
+    <div class="col-sm-4">
+        <canvas id="LineChart" width="400" height="400"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <script>
+        var ctx = document.getElementById('LineChart').getContext('2d');
+        var lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels:{{ labels|safe }},
+                datasets: [
+                    {
+                        label: "24小時內每小時api打的次數",
+                        data: {{ data|safe }},
+                        lineTension: 0,
+                        fill: false,
+                        borderColor: 'blue'
+                    },
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+        });
+    </script>
+    <div class="col-sm-4" style="margin-left:600px;margin-top:-540px">
+        <canvas id="LineChartMin" width="400" height="400"></canvas>
+    </div>
+    <link rel="stylesheet">
+    <script>
+        var ctx = document.getElementById('LineChartMin').getContext('2d');
+        var LineChartMin = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels:{{ labels_min|safe }},
+                datasets: [
+                    {
+                        label: "60分鐘內api打的次數",
+                        data: {{ data_min|safe }},
+                        lineTension: 0,
+                        fill: false,
+                        borderColor: 'red'
+                    },
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

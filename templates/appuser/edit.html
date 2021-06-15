@@ -1,0 +1,32 @@
+{% extends 'base_main.html' %}
+
+{% block content %}
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <div style="margin-left:40px">
+        <form method="post" action="{% url 'appuser:edit' pk %}">
+            {% csrf_token %}
+            <div>
+                <p>
+                    使用者: <a>{{ name }}</a>
+                </p>
+                <p>
+                    <select name="is_enable">
+                        {% if is_enable %}
+                            <option select value="False">停用</option>
+                        {% else %}
+                            <option select value="True">啟用</option>
+                        {% endif %}
+                    </select>
+                </p>
+
+            </div>
+            <div>
+                <p>
+                    提交：<input type="submit" value="保存">
+                </p>
+            </div>
+        </form>
+    </div>
+    {#    <a href="{% url 'appuser:list' %}">返回</a>#}
+{% endblock %}

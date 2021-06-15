@@ -1,0 +1,37 @@
+{% extends 'base_main.html' %}
+
+{% block content %}
+    <script type="text/javascript" language="JavaScript">
+        function check(form) {
+            if (form.name.value == '') {
+                alert("不能為空");
+                form.name.focus();
+                return false;
+            }
+            else if (form.name.value.length > 6) {
+                alert('名稱不能超過6個字！');
+                form.name.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <div style="margin-left:40px">
+        <h3>新增appuser</h3>
+        <form action="{% url 'appuser:add' %}"
+              method="post" onsubmit="return check(this)">
+            {% csrf_token %}
+            <p>
+                名稱 : <input name="name">
+            </p>
+            <button class="btn btn-success" type="submit">
+                新增
+            </button>
+        </form>
+    </div>
+
+    {#     <a href="{% url 'appuser:list' %}">返回</a>#}
+{% endblock %}

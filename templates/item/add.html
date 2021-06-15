@@ -1,0 +1,27 @@
+{% extends 'base_main.html' %}
+
+{% block content %}
+
+    <html lang="en">
+
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+
+    <div style="margin-left:40px">
+        <h3>新增股票</h3>
+        <form action="{% url 'item:add' %}"
+              method="post">
+            {% csrf_token %}
+            <p>
+                名稱 : <input name="name">
+            </p>
+            <p>
+                股價 : <input name="value">
+            </p>
+            <button class="btn btn-success" type="submit">
+                新增
+            </button>
+        </form>
+    </div>
+
+{% endblock %}
