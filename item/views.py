@@ -1,4 +1,5 @@
 from datetime import timedelta
+import re
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -95,8 +96,14 @@ def add(request):
         }
         return render(request, 'item/add.html', context=data)
     elif request.method == 'POST':
-        name = request.POST.get('name')
-        value = request.POST.get('value')
+        name = request.POST.get('name', '')
+        value = request.POST.get('value', '')
+        test_str = re.search(r'W', name or value)
+        if name or value == '':
+            # messages.add_message(request, messages.INFO, '不能為空')
+            return render(request, 'item/add.html')
+        elif test_str:
+            return render(request, 'item/add.html')
         items = Item()
         items.name = name
         items.value = value
@@ -135,5 +142,3 @@ def delete(request, pk):
 @login_required  # 首頁
 def home(request):
     return render(request, 'main/home.html')
-
-

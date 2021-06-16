@@ -45,7 +45,9 @@ def add(request):
         }
         return render(request, 'appuser/add.html', context=data)
     elif request.method == 'POST':
-        name = request.POST.get('name')
+        name = request.POST.get('name', '')
+        if name == '':
+            return render(request, 'appuser/add.html')
         token = secrets.token_hex(10)
         secretkey = secrets.token_urlsafe(20)
         appuser = AppUser()

@@ -19,34 +19,41 @@
         }
     </script>
 
-    <div style="margin-left:500px">
-        <table>
-            <tr>
-                <th>管理</th>
-                <th>股票名稱</th>
-                <th>股價</th>
-            </tr>
-            {% for message in messages %}
-                <div class="alert aler-{{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-            {% for item in item_list %}
+
+
+    <div class="col-sm-auto">
+        <div class="row-cols-3">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>股票名稱</th>
+                    <th>股價</th>
+                    <th>管理</th>
+                </tr>
+                </thead>
+                {% for message in messages %}
+                    <div class="alert aler-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+                {% for item in item_list %}
+                    <thead>
+                    <tr>
+                        <td> {{ item.name }} </td>
+                        <td>{{ item.value }}</td>
+                        <td>
+                            <a href="{% url 'item:delete' item.id %}" class="btn btn-info" role="button"
+                               onclick="return item_delete()">刪除</a>
+                            <a href="{% url 'item:edit' item.id %}" class="btn btn-info" role="button">編輯</a>
+                        </td>
+                    </tr>
+                    </thead>
+                {% endfor %}
+
                 <tr>
                     <td>
-                        <a onclick="return item_delete()" href="{% url 'item:delete' item.id %}">删除</a>
-                        <a href="{% url 'item:edit' item.id %}">編輯</a>
+                        <a href="{% url 'item:add' %}" class="btn btn-info" role="button">新增</a>
                     </td>
-                    <td> {{ item.name }} </td>
-                    <td>{{ item.value }}</td>
                 </tr>
-            {% endfor %}
-
-            <tr>
-                <td>
-                    <a href="{% url 'item:add' %}">新增</a>
-                </td>
-
-            </tr>
-        </table>
+            </table>
+        </div>
     </div>
-
 {% endblock %}

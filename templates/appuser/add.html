@@ -7,8 +7,7 @@
                 alert("不能為空");
                 form.name.focus();
                 return false;
-            }
-            else if (form.name.value.length > 6) {
+            } else if (form.name.value.length > 6) {
                 alert('名稱不能超過6個字！');
                 form.name.focus();
                 return false;
@@ -24,9 +23,10 @@
         <form action="{% url 'appuser:add' %}"
               method="post" onsubmit="return check(this)">
             {% csrf_token %}
-            <p>
-                名稱 : <input name="name">
-            </p>
+            <div class="form-group">
+                <label for="usr">名稱:</label>
+                <input type="text" class="form-control" id="usr" name="name" style="width:200px">
+            </div>
             <button class="btn btn-success" type="submit">
                 新增
             </button>
